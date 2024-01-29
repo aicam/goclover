@@ -4,16 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/aicam/goclover/apicall"
+	"github.com/aicam/goclover/structures"
 )
 
 func (s *Service) GetAccessToken(clientId, code string) (string, error) {
 
-	body, err := apicall.MakeGetAccessTokenReq(clientId, code, s.ClientSecret, s.BaseUrl)
+	body, err := apicall.MakeGetAccessTokenReq(clientId, code, s.ClientSecret, s.InventoryBaseUrl)
 	if err != nil {
 		return "", err
 	}
 
-	var respJson GetAccessTokenResp
+	var respJson structures.GetAccessTokenResp
 
 	err = json.Unmarshal(body, &respJson)
 	if err != nil {

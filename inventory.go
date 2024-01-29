@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/aicam/goclover/apicall"
+	"github.com/aicam/goclover/structures"
 )
 
-func (s *Session) GetListOfItems() (GetListOfItemsResp, error) {
-	var resp GetListOfItemsResp
+func (s *InventorySession) GetListOfItems() (structures.GetListOfItemsResp, error) {
+	var resp structures.GetListOfItemsResp
 
-	body, err := apicall.MakeGetListOfItemsReq(s.AccessSecret, s.MID, s.BaseUrl)
+	body, err := apicall.MakeGetListOfItemsReq(s.AccessSecret, s.MID, s.InventoryBaseUrl)
 	if err != nil {
 		return resp, err
 	}
@@ -26,10 +27,10 @@ func (s *Session) GetListOfItems() (GetListOfItemsResp, error) {
 	return resp, nil
 }
 
-func (s *Session) GetItemCategories(itemId string) (GetItemCategoriesResp, error) {
-	var resp GetItemCategoriesResp
+func (s *InventorySession) GetItemCategories(itemId string) (structures.GetItemCategoriesResp, error) {
+	var resp structures.GetItemCategoriesResp
 
-	body, err := apicall.MakeGetItemCategoriesReq(s.AccessSecret, s.MID, itemId, s.BaseUrl)
+	body, err := apicall.MakeGetItemCategoriesReq(s.AccessSecret, s.MID, itemId, s.InventoryBaseUrl)
 	if err != nil {
 		return resp, err
 	}
