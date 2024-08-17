@@ -1,30 +1,10 @@
 package structures
 
-type GetItemsRespElements struct {
-	Id              string `json:"id"`
-	Hidden          bool   `json:"hidden"`
-	Available       bool   `json:"available"`
-	AutoManage      bool   `json:"autoManage"`
-	Name            string `json:"name"`
-	AlternateName   string `json:"alternateName"`
-	Code            string `json:"code"`
-	Sku             string `json:"sku"`
-	Price           int    `json:"price"`
-	PriceType       string `json:"priceType"`
-	DefaultTaxRates bool   `json:"defaultTaxRates"`
-	UnitName        string `json:"unitName"`
-	Cost            int    `json:"cost"`
-	IsRevenue       bool   `json:"isRevenue"`
-	StockCount      int    `json:"stockCount"`
-	ModifiedTime    int64  `json:"modifiedTime"`
-	Deleted         bool   `json:"deleted"`
-}
-
 type GetListOfItemsResp struct {
-	Elements []GetItemsRespElements `json:"elements"`
+	Elements []LineItem `json:"elements"`
 }
 
-type GetCategoriesRespElements struct {
+type LineCategory struct {
 	Id        string `json:"id"`
 	Name      string `json:"name"`
 	SortOrder int    `json:"sortOrder"`
@@ -32,7 +12,7 @@ type GetCategoriesRespElements struct {
 }
 
 type GetItemCategoriesResp struct {
-	Elements []GetCategoriesRespElements `json:"elements"`
+	Elements []LineCategory `json:"elements"`
 }
 
 type LineItem struct {
@@ -48,7 +28,7 @@ type LineItem struct {
 			EmergencyFlag  string `json:"emergencyFlag"`
 		} `json:"transactionInfo"`
 	} `json:"refund"`
-	IsRevenue                                  string `json:"isRevenue"`
+	IsRevenue                                  bool   `json:"isRevenue"`
 	Id                                         string `json:"id"`
 	ColorCode                                  string `json:"colorCode"`
 	Name                                       string `json:"name"`
@@ -69,4 +49,34 @@ type LineItem struct {
 		Percentage int    `json:"percentage"`
 	} `json:"discounts"`
 	DiscountAmount int `json:"discountAmount"`
+}
+
+type ItemModifierGroup struct {
+	Id            string `json:"id"`
+	Name          string `json:"name"`
+	MinRequired   int    `json:"minRequired"`
+	MaxAllowed    int    `json:"maxAllowed"`
+	ShowByDefault bool   `json:"showByDefault"`
+	ModifierIds   string `json:"modifierIds"`
+	Deleted       bool   `json:"deleted"`
+}
+
+type GetAllItemModifierGroupsResp struct {
+	Elements []ItemModifierGroup `json:"elements"`
+}
+
+type ItemModifier struct {
+	Id            string `json:"id"`
+	Name          string `json:"name"`
+	Available     bool   `json:"available"`
+	Price         int    `json:"price"`
+	ModifiedTime  int64  `json:"modifiedTime"`
+	ModifierGroup struct {
+		Id string `json:"id"`
+	} `json:"modifierGroup"`
+	Deleted bool `json:"deleted"`
+}
+
+type GetAllItemsModifierGroupResp struct {
+	Elements []LineItem `json:"elements"`
 }

@@ -216,3 +216,24 @@ type PayOrderResp struct {
 		Paid int64 `json:"paid"`
 	} `json:"status_transitions"`
 }
+
+type GetOrderTypesResp struct {
+	Elements []struct {
+		Id                string `json:"id"`
+		LabelKey          string `json:"labelKey"`
+		Label             string `json:"label"`
+		Taxable           bool   `json:"taxable"`
+		IsDefault         bool   `json:"isDefault"`
+		FilterCategories  bool   `json:"filterCategories"`
+		IsHidden          bool   `json:"isHidden"`
+		Fee               int    `json:"fee"`
+		MinOrderAmount    int    `json:"minOrderAmount"`
+		MaxOrderAmount    int    `json:"maxOrderAmount"`
+		MaxRadius         int    `json:"maxRadius"`
+		AvgOrderTime      int    `json:"avgOrderTime"`
+		HoursAvailable    string `json:"hoursAvailable"`
+		IsDeleted         bool   `json:"isDeleted"`
+		SystemOrderTypeId string `json:"systemOrderTypeId"`
+	} `json:"elements"`
+	Href string `json:"href"`
+}

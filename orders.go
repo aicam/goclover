@@ -98,3 +98,19 @@ func (s *InventorySession) PayOrder(payObj structures.PayOrderReq, orderId strin
 
 	return resp, nil
 }
+
+func (s *InventorySession) GetOrderTypes() (structures.GetOrderTypesResp, error) {
+	var resp structures.GetOrderTypesResp
+
+	body, err := apicall.MakeGetOrderTypesReq(s.AccessSecret, s.MID, s.InventoryBaseUrl)
+	if err != nil {
+		return resp, err
+	}
+
+	json.Unmarshal(body, &resp)
+	if resp.Elements[0].Id == "" {
+		return resp, errors.New(handleFailwithStatusOk(body))
+	}
+
+	return resp, nil
+}

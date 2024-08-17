@@ -13,7 +13,7 @@ import (
 var CLIENT_SECRET = "6e0849b6-8530-dddf-06a6-c61e889d236d"
 var CLIENT_ID = "PSV9BBR6N34X2"
 var CODE = "e51a1825-61c8-6bc2-ef4e-8be058ad8ed2"          // changes every minute
-var ACCESS_SECRET = "5303a34d-4793-27dd-d2be-23d80b23589f" // changes every auth
+var ACCESS_SECRET = "559216cc-201c-1032-c16b-7d9520eee2b0" // changes every auth
 var MID = "Q2SW4KM0D6851"
 
 var SAMPLE_ITEM_ID = "1ZCQ912HY9M90"
@@ -38,6 +38,8 @@ var SAMPLE_ATOMIC_ORDER = structures.CreateAtomicOrderReq{OrderCart: struct {
 }})}
 var SAMPLE_ORDER_ID = "SP4ZQ47CTRHBR"
 var SAMPLE_CARD_TOKEN = "clv_1TSTS1Tavwzh9ihRkVBTQtox"
+var SAMPLE_MODIFIER_GROUP = "C0F3B0Z07G5A4"
+var SAMPLE_MODIFIER_ID = "3XC334KW1VJM6"
 
 func TestService_GetAccessToken(t *testing.T) {
 	s := InitApp(CLIENT_SECRET)
@@ -150,4 +152,60 @@ func TestInventorySession_PayOrder(t *testing.T) {
 	}
 
 	log.Println("order id ", order.Id)
+}
+
+func TestInventorySession_GetAllItemModifierGroups(t *testing.T) {
+	s := InitApp(CLIENT_SECRET)
+
+	session := InitSession(*s, ACCESS_SECRET, MID)
+	modifierGroups, err := session.GetAllItemModifierGroups()
+
+	if err != nil {
+		t.Fatal("Error raised: ", err)
+		return
+	}
+
+	log.Println("modifierGroups id ", modifierGroups.Elements[0])
+}
+
+func TestInventorySession_GetAllItemsOfModifierGroup(t *testing.T) {
+	s := InitApp(CLIENT_SECRET)
+
+	session := InitSession(*s, ACCESS_SECRET, MID)
+	itemsModifierGroup, err := session.GetAllItemsOfModifierGroup(SAMPLE_MODIFIER_GROUP)
+
+	if err != nil {
+		t.Fatal("Error raised: ", err)
+		return
+	}
+
+	log.Println("itemsModifierGroup id ", itemsModifierGroup.Elements[0])
+}
+
+func TestInventorySession_GetModifier(t *testing.T) {
+	s := InitApp(CLIENT_SECRET)
+
+	session := InitSession(*s, ACCESS_SECRET, MID)
+	modifier, err := session.GetModifier(SAMPLE_MODIFIER_GROUP, SAMPLE_MODIFIER_ID)
+
+	if err != nil {
+		t.Fatal("Error raised: ", err)
+		return
+	}
+
+	log.Println("modifier id ", modifier)
+}
+
+func TestInventorySession_GetOrderTypes(t *testing.T) {
+	s := InitApp(CLIENT_SECRET)
+
+	session := InitSession(*s, ACCESS_SECRET, MID)
+	modifier, err := session.GetOrderTypes()
+
+	if err != nil {
+		t.Fatal("Error raised: ", err)
+		return
+	}
+
+	log.Println("first order type id ", modifier)
 }
